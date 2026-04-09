@@ -1,0 +1,296 @@
+/* ─────────────────────────────────────────────────────────────
+   gdc_Culture — Life at DAEUnextier
+   Mobile-first. Desktop breakpoint: ≥ 1024px
+───────────────────────────────────────────────────────────── */
+
+:host {
+    display: block;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Design tokens */
+    --gdc-black:    #050505;
+    --gdc-blue:     #00A1E0;
+    --gdc-gray:     #666666;
+    --gdc-border:   #D9D9D9;
+    --gdc-divider:  #CCCCCC;
+    --gdc-radius:   1.25rem;     /* 20px */
+}
+
+/* ─────────────────────────────────────────────
+   WRAPPER
+───────────────────────────────────────────── */
+.gdc-culture {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;                   /* 80px */
+    padding: 5rem 1.5rem;        /* mobile: 80px top/bottom, 24px sides */
+    color: var(--gdc-black);
+}
+
+/* ─────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────── */
+.gdc-header {
+    display: flex;
+    flex-direction: column;      /* mobile: stacked */
+    gap: 1.875rem;               /* 30px */
+    padding-bottom: 1.25rem;     /* 20px */
+    border-bottom: 1px solid var(--gdc-border);
+}
+
+.gdc-header__title {
+    margin: 0;
+    font-size: 1.875rem;         /* mobile: 30px */
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gdc-black);
+}
+
+.gdc-header__tagline {
+    font-size: 1.25rem;          /* mobile: 20px */
+    font-weight: 500;
+    line-height: 1.8;
+    letter-spacing: -0.05em;
+    color: var(--gdc-blue);
+}
+
+.gdc-header__tagline p {
+    margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+   SECTIONS CONTAINER
+───────────────────────────────────────────── */
+.gdc-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;                   /* 80px */
+}
+
+/* ─────────────────────────────────────────────
+   SECTION — mobile: single column, image on top
+───────────────────────────────────────────── */
+.gdc-section {
+    display: flex;
+    flex-direction: column;      /* mobile: stacked */
+    gap: 2.5rem;                 /* 40px */
+    align-items: flex-start;
+}
+
+/* Image column */
+.gdc-section__image-col {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Centered image column (Together section) */
+.gdc-section__image-col--centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gdc-section__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--gdc-radius);
+    display: block;
+}
+
+/* Together: horizontally mirrored per Figma (scaleY(-1) + rotate(180deg) = scaleX(-1)) */
+.gdc-section__image--mirror {
+    transform: scaleX(-1);
+}
+
+/* Text column */
+.gdc-section__text-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   SECTION HEADING  (Convince / Reward / …)
+───────────────────────────────────────────── */
+.gdc-section__heading {
+    margin: 0 0 2.5rem 0;
+    font-size: 3.75rem;          /* mobile: 60px */
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--gdc-black);
+}
+
+/* ─────────────────────────────────────────────
+   OPTION LIST
+───────────────────────────────────────────── */
+.gdc-option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;                 /* 40px */
+    padding-top: 2.5rem;         /* 40px */
+    border-top: 1px solid var(--gdc-divider);
+    font-size: 1rem;             /* mobile: 16px */
+    letter-spacing: -0.04em;
+}
+
+/* ─── OPTION — mobile: vertical ─── */
+.gdc-option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;                /* 12px */
+}
+
+.gdc-option__label {
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--gdc-black);
+}
+
+.gdc-option__desc {
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--gdc-gray);
+    margin: 0;
+}
+
+/* ─── Together: always vertical, wider gap ─── */
+.gdc-option-list--stack {
+    gap: 3.75rem;                /* 60px */
+}
+
+.gdc-option--stack {
+    flex-direction: column;
+    gap: 0.25rem;                /* 4px */
+}
+
+/* ─── Family: label + grouped descriptions ─── */
+.gdc-option-list--family {
+    gap: 2.5rem;
+}
+
+.gdc-family-descs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;                /* 20px mobile */
+}
+
+/* ═════════════════════════════════════════════
+   DESKTOP  ≥ 1024px
+═════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+
+    /* Wrapper: large desktop padding */
+    .gdc-culture {
+        padding: 10rem;          /* 160px */
+    }
+
+    /* Header: side by side */
+    .gdc-header {
+        flex-direction: row;
+        gap: 0;
+        align-items: flex-start;
+        padding-bottom: 5rem;    /* 80px */
+    }
+
+    .gdc-header__title {
+        flex: 1 0 0;
+        font-size: 2.875rem;     /* 46px */
+    }
+
+    .gdc-header__tagline {
+        flex: 1 0 0;
+        font-size: 2rem;         /* 32px */
+        letter-spacing: -0.04em;
+    }
+
+    /* Section: side by side, aligned to bottom */
+    .gdc-section {
+        flex-direction: row;     /* image-left = natural order */
+        align-items: flex-end;
+        gap: 2.5rem;
+    }
+
+    /* Convince & Reward: text on left, image on right */
+    .gdc-section--image-right {
+        flex-direction: row-reverse;
+    }
+
+    .gdc-section__image{
+        height: 780px;
+    }
+
+    /* Both columns take equal width */
+    .gdc-section__image-col,
+    .gdc-section__text-col {
+        flex: 1 0 0;
+        min-width: 0;
+    }
+
+    /* Text col: stretch to row height, heading at top — options at bottom */
+    .gdc-section__text-col {
+        align-self: stretch;
+        justify-content: space-between;
+    }
+
+    /* Section heading: large desktop size */
+    .gdc-section__heading {
+        margin-bottom: 0;
+        font-size: 6.25rem;      /* 100px */
+    }
+
+    /* Option list: larger font, more top padding */
+    .gdc-option-list {
+        font-size: 1.5rem;       /* 24px */
+        letter-spacing: -0.04em;
+        padding-top: 3.75rem;    /* 60px */
+        gap: 2.5rem;
+    }
+
+    /* Convince & Reward options: horizontal label | description */
+    .gdc-option {
+        flex-direction: row;
+        gap: 0;
+        align-items: flex-start;
+    }
+
+    .gdc-option__label {
+        width: 10.625rem;        /* 170px */
+        flex-shrink: 0;
+        padding-right: 5.625rem; /* 90px gap to description */
+    }
+
+    .gdc-option__desc {
+        flex: 1 0 0;
+    }
+
+    /* Together: keep vertical on desktop, override horizontal rule */
+    .gdc-option-list--stack {
+        padding-top: 3.75rem;
+        gap: 3.75rem;            /* 60px */
+    }
+
+    .gdc-option--stack {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .gdc-option--stack .gdc-option__label {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .gdc-option--stack .gdc-option__desc {
+        flex: unset;
+    }
+
+    /* Family: keep vertical layout on desktop */
+    .gdc-option-list--family .gdc-option__label {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .gdc-family-descs {
+        gap: 2.5rem;             /* 40px desktop */
+    }
+}

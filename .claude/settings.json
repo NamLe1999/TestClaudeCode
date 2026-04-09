@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sf package:*)",
+      "Bash(sf --version)",
+      "Bash(\"/c/Program Files/sf/bin/sf\" package create --name \"gdc-culture\" --package-type Unlocked --path package-force-app --target-dev-hub namlee151199787@agentforce.com --description \"GDC Culture LWC component and static resources for DAEUnextier Life at DAEUnextier page\" --json)",
+      "Bash(cmd /c \"cd /d \\\\\"C:\\\\Nam Le\\\\AI Research\\\\TestClaudeCode\\\\artifacts\\\\unlocked-packages\\\\gdc-culture\\\\20260403T094105\\\\\" && \\\\\"C:\\\\Program Files\\\\sf\\\\bin\\\\sf\\\\\" package create --name gdc-culture --package-type Unlocked --path package-force-app --target-dev-hub namlee151199787@agentforce.com --json\")",
+      "Bash(cmd /c \"subst Z: \\\\\"C:\\\\Nam Le\\\\AI Research\\\\TestClaudeCode\\\\artifacts\\\\unlocked-packages\\\\gdc-culture\\\\20260403T094105\\\\\"\")",
+      "Bash(cmd /c \"subst Z: /D\")",
+      "Bash(cmd /c \"dir Z:\\\\\" 2>&1)",
+      "Bash(cmd /c \"C:\\\\Nam Le\\\\AI Research\\\\TestClaudeCode\\\\artifacts\\\\unlocked-packages\\\\gdc-culture\\\\20260403T094105\\\\pkg-setup.bat\")",
+      "Bash(cmd /c \"subst Z:\")",
+      "Bash(powershell -Command \"Set-Location 'C:\\\\Nam Le\\\\AI Research\\\\TestClaudeCode\\\\artifacts\\\\unlocked-packages\\\\gdc-culture\\\\20260403T094105'; & 'C:\\\\Program Files\\\\sf\\\\bin\\\\sf' package create --name gdc-culture --package-type Unlocked --path package-force-app --target-dev-hub namlee151199787@agentforce.com --json\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\\\Nam Le\\\\AI Research\\\\TestClaudeCode\\\\artifacts\\\\unlocked-packages\\\\gdc-culture\\\\20260403T094105\\\\pkg-setup.ps1\")",
+      "Bash(echo \"PS exit: $?\")",
+      "Read(//c/Program Files/sf/bin//**)"
+    ]
+  }
+}

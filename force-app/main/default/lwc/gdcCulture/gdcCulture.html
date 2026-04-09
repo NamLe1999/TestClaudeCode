@@ -1,0 +1,130 @@
+<template>
+    <div class="gdc-culture">
+
+        <!-- ═══════════════════════════════════════
+             HEADER
+        ════════════════════════════════════════ -->
+        <div class="gdc-header">
+            <h1 class="gdc-header__title">Life at DAEUnextier</h1>
+            <div class="gdc-header__tagline">
+                <p>We respect our people&apos;s engagement and growth,and foster an environment where we can grow together in balance with work and life.</p>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════
+             SECTIONS
+        ════════════════════════════════════════ -->
+        <div class="gdc-sections">
+
+            <!-- ─────────────────────────────────
+                 Convince
+                 Desktop: text-left / image-right
+                 Mobile:  image-top / text-bottom
+            ──────────────────────────────────── -->
+            <div class="gdc-section gdc-section--image-right">
+                <!-- Image first → appears on top in mobile column layout -->
+                <div class="gdc-section__image-col">
+                    <img class="gdc-section__image" src={convinceImageUrl} alt="Convince - DAEUnextier Culture" />
+                </div>
+                <div class="gdc-section__text-col">
+                    <h2 class="gdc-section__heading">Convince</h2>
+                    <div class="gdc-option-list">
+                        <div class="gdc-option">
+                            <span class="gdc-option__label">Flexible Work</span>
+                            <span class="gdc-option__desc">Flexible working hours system</span>
+                        </div>
+                        <div class="gdc-option">
+                            <span class="gdc-option__label">Work Environment</span>
+                            <span class="gdc-option__desc">Meeting rooms, lounge areas, massage chairs, women&apos;s powder room, and cafeteria</span>
+                        </div>
+                        <div class="gdc-option">
+                            <span class="gdc-option__label">Company Culture</span>
+                            <span class="gdc-option__desc">Flat organizational structure, flexible dress code, and strong team spirit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────────────────────
+                 Reward
+                 Desktop: text-left / image-right
+                 Mobile:  image-top / text-bottom
+            ──────────────────────────────────── -->
+            <div class="gdc-section gdc-section--image-right">
+                <div class="gdc-section__image-col">
+                    <img class="gdc-section__image" src={rewardImageUrl} alt="Reward - DAEUnextier Culture" />
+                </div>
+                <div class="gdc-section__text-col">
+                    <h2 class="gdc-section__heading">Reward</h2>
+                    <div class="gdc-option-list">
+                        <div class="gdc-option">
+                            <span class="gdc-option__label">Compensation &amp; Benefits</span>
+                            <span class="gdc-option__desc">National health &amp; social insurance coverage, performance-based incentives, annual leave allowance, retirement pension plan, and certification allowance</span>
+                        </div>
+                        <div class="gdc-option">
+                            <span class="gdc-option__label">Leave Policy</span>
+                            <span class="gdc-option__desc">Annual leave, half-day leave, compensatory leave, spouse maternity leave, and other special leave</span>
+                        </div>
+                        <div class="gdc-option">
+                            <span class="gdc-option__label">Welfare Benefits</span>
+                            <span class="gdc-option__desc">Annual cash-based welfare points and long-term service awards</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────────────────────
+                 Together
+                 Desktop: image-left (mirrored) / text-right
+                 Mobile:  image-top / text-bottom
+            ──────────────────────────────────── -->
+            <div class="gdc-section gdc-section--image-left">
+                <div class="gdc-section__image-col gdc-section__image-col--centered">
+                    <!-- Image is horizontally mirrored per Figma design (scaleX -1) -->
+                    <img class="gdc-section__image gdc-section__image--mirror" src={togetherImageUrl} alt="Together - DAEUnextier Culture" />
+                </div>
+                <div class="gdc-section__text-col">
+                    <h2 class="gdc-section__heading">Together</h2>
+                    <!-- Options are always vertical (stacked) for this section -->
+                    <div class="gdc-option-list gdc-option-list--stack">
+                        <div class="gdc-option gdc-option--stack">
+                            <span class="gdc-option__label">Project Support</span>
+                            <span class="gdc-option__desc">Paid leave and support for transportation, accommodation, and other project-related expenses</span>
+                        </div>
+                        <div class="gdc-option gdc-option--stack">
+                            <span class="gdc-option__label">Training &amp; Development Support</span>
+                            <span class="gdc-option__desc">Financial support for certification acquisition and book purchases</span>
+                        </div>
+                        <div class="gdc-option gdc-option--stack">
+                            <span class="gdc-option__label">Military Service Program Support</span>
+                            <span class="gdc-option__desc">Participation in the Industrial Technical Personnel (military alternative service) program</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────────────────────
+                 Family
+                 Desktop: image-left / text-right
+                 Mobile:  image-top / text-bottom
+            ──────────────────────────────────── -->
+            <div class="gdc-section gdc-section--image-left">
+                <div class="gdc-section__image-col">
+                    <img class="gdc-section__image" src={familyImageUrl} alt="Family - DAEUnextier Culture" />
+                </div>
+                <div class="gdc-section__text-col">
+                    <h2 class="gdc-section__heading">Family</h2>
+                    <div class="gdc-option-list gdc-option-list--family">
+                        <span class="gdc-option__label">Employee Care</span>
+                        <div class="gdc-family-descs">
+                            <p class="gdc-option__desc">Support for family events and ceremonies, health checkups, holiday bonuses, group accident insurance coverage, and claims advisory services</p>
+                            <p class="gdc-option__desc">Support for in-house club activities, access to company retreat facilities, and meal and taxi allowances for overtime work</p>
+                            <p class="gdc-option__desc">Birthday gift allowance, welcome kit for new hires, and a monthly &quot;Family Day&quot; with early leave</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end .gdc-sections -->
+    </div>
+</template>

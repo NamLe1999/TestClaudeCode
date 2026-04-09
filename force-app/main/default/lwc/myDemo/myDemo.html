@@ -1,0 +1,262 @@
+<template>
+    <div class={viewportClass}>
+
+        <!-- ── HERO (Desktop only) ── -->
+        <template if:true={isDesktop}>
+            <div class="hero">
+                <img src={bannerUrl} alt="" class="hero-bg-img" />
+                <div class="hero-overlay"></div>
+                <div class="hero-text">
+                    <p>DAEUnextier is looking for talents</p>
+                    <p>who will build the future with us.</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- ── DESCRIPTION — Desktop (2 columns) ── -->
+        <template if:true={isDesktop}>
+            <div class="desc-section">
+                <div class="desc-left">
+                    <p>We seek creative individuals</p>
+                    <p>who enjoy their work with passion,<br />take ownership, and continuously challenge themselves.</p>
+                </div>
+                <div class="desc-right">
+                    <p class="desc-bold">If this sounds like you,</p>
+                    <p class="desc-highlight">you are exactly who we are looking for.</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- ── DESCRIPTION — Mobile (single column) ── -->
+        <template if:false={isDesktop}>
+            <div class="desc-section-m">
+                <p class="desc-m-regular">We seek creative individuals who enjoy their work with passion, take ownership,<br />and continuously challenge themselves.</p>
+                <p class="desc-m-bold">If this sounds like you, <span class="desc-highlight">you are exactly who we are looking for.</span></p>
+            </div>
+        </template>
+
+        <!-- ── VALUE CARDS — Desktop ── -->
+        <template if:true={isDesktop}>
+            <div class="cards-container">
+
+                <!-- Row 1: Card1, Card2, [Circle + Card3] -->
+                <div class="cards-row-1">
+                    <div class="card card--1">
+                        <div class="card-ellipse card-ellipse--1"></div>
+                        <span class="card-number">1.</span>
+                        <p class="card-label">Customer-focused mindset</p>
+                    </div>
+                    <div class="card card--2">
+                        <div class="card-ellipse card-ellipse--2"></div>
+                        <span class="card-number">2.</span>
+                        <p class="card-label">Values integrity and principles</p>
+                    </div>
+                    <div class="cards-group cards-group--r1">
+                        <div class="deco-circle"></div>
+                        <div class="card card--3">
+                            <div class="card-ellipse card-ellipse--3"></div>
+                            <span class="card-number">3.</span>
+                            <div class="card-label-multi">
+                                <p class="card-label">Thinks</p>
+                                <p class="card-label">innovatively</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: [Card4 + Circle], Card5 -->
+                <div class="cards-row-2">
+                    <div class="cards-group cards-group--r2">
+                        <div class="card card--4">
+                            <div class="card-ellipse card-ellipse--4"></div>
+                            <span class="card-number">4.</span>
+                            <p class="card-label">Passionate about their work</p>
+                        </div>
+                        <div class="deco-circle"></div>
+                    </div>
+                    <div class="card card--5">
+                        <div class="card-ellipse card-ellipse--5"></div>
+                        <span class="card-number">5.</span>
+                        <p class="card-label">A team player with a selfless mindset</p>
+                    </div>
+                </div>
+
+            </div>
+        </template>
+
+        <!-- ── VALUE CARDS — Mobile ── -->
+        <template if:false={isDesktop}>
+            <div class="cards-m-container">
+
+                <!-- Row 1: Card1 + Card2 -->
+                <div class="cards-m-row">
+                    <div class="card-m card-m--1">
+                        <div class="card-ellipse-m card-ellipse-m--1"></div>
+                        <span class="card-number-m">1.</span>
+                        <p class="card-label-m">Customer-focused mindset</p>
+                    </div>
+                    <div class="card-m card-m--2">
+                        <div class="card-ellipse-m card-ellipse-m--2"></div>
+                        <span class="card-number-m">2.</span>
+                        <p class="card-label-m">Values integrity and principles</p>
+                    </div>
+                </div>
+
+                <!-- Row 2: DecoCircle + Card3 -->
+                <div class="cards-m-row">
+                    <div class="deco-circle-m"></div>
+                    <div class="card-m card-m--3">
+                        <div class="card-ellipse-m card-ellipse-m--3"></div>
+                        <span class="card-number-m">3.</span>
+                        <div class="card-label-multi">
+                            <p class="card-label-m">Thinks</p>
+                            <p class="card-label-m">innovatively</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Card4 + DecoCircle -->
+                <div class="cards-m-row">
+                    <div class="card-m card-m--4">
+                        <div class="card-ellipse-m card-ellipse-m--4"></div>
+                        <span class="card-number-m">4.</span>
+                        <p class="card-label-m">Passionate about their work</p>
+                    </div>
+                    <div class="deco-circle-m"></div>
+                </div>
+
+                <!-- Row 4: Card5 full width -->
+                <div class="card-m card-m--5">
+                    <div class="card-ellipse-m card-ellipse-m--5"></div>
+                    <span class="card-number-m">5.</span>
+                    <p class="card-label-m">A team player with a selfless mindset</p>
+                </div>
+
+            </div>
+        </template>
+
+        <!-- ── RECRUITMENT PROCESS ── -->
+        <div class="recruit-section">
+            <h2 class="section-heading">Recruitment Process</h2>
+
+            <!-- Desktop: single horizontal row -->
+            <template if:true={isDesktop}>
+                <div class="process-box">
+                    <div class="process-steps">
+                        <div class="step">
+                            <img src={fileEditUrl} alt="" class="step-icon" />
+                            <p class="step-label">Application</p>
+                            <p class="step-label">Submission</p>
+                        </div>
+                        <img src={polygonUrl} alt="" class="step-arrow" />
+                        <div class="step">
+                            <img src={fileSearchUrl} alt="" class="step-icon" />
+                            <p class="step-label">Resume</p>
+                            <p class="step-label">Screening</p>
+                        </div>
+                        <img src={polygonUrl} alt="" class="step-arrow" />
+                        <div class="step">
+                            <img src={messageTextUrl} alt="" class="step-icon" />
+                            <p class="step-label">Interview</p>
+                            <p class="step-label step-label--sub">(Team / Executive)</p>
+                        </div>
+                        <img src={polygonUrl} alt="" class="step-arrow" />
+                        <div class="step">
+                            <img src={hourglassUrl} alt="" class="step-icon" />
+                            <p class="step-label">Offer</p>
+                            <p class="step-label">Discussion</p>
+                        </div>
+                        <img src={polygonUrl} alt="" class="step-arrow" />
+                        <div class="step">
+                            <img src={thumbUpUrl} alt="" class="step-icon" />
+                            <p class="step-label">Final</p>
+                            <p class="step-label">Acceptance</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Mobile: zigzag layout -->
+            <template if:false={isDesktop}>
+                <div class="process-box-m">
+                    <!-- Row 1: App Submission → Resume Screening -->
+                    <div class="process-row-m">
+                        <div class="step-m">
+                            <img src={fileEditUrl} alt="" class="step-icon-m" />
+                            <p class="step-label-m">Application</p>
+                            <p class="step-label-m">Submission</p>
+                        </div>
+                        <img src={polygonUrl} alt="" class="step-arrow-m" />
+                        <div class="step-m">
+                            <img src={fileSearchUrl} alt="" class="step-icon-m" />
+                            <p class="step-label-m">Resume</p>
+                            <p class="step-label-m">Screening</p>
+                        </div>
+                    </div>
+                    <!-- Middle: Interview -->
+                    <div class="process-middle-m">
+                        <div class="step-m">
+                            <img src={messageTextUrl} alt="" class="step-icon-m" />
+                            <p class="step-label-m">Interview</p>
+                            <p class="step-label-m">(Team / Executive)</p>
+                        </div>
+                    </div>
+                    <!-- Row 3: arrow, Offer Discussion, arrow, Final Acceptance -->
+                    <div class="process-row-m">
+                        <img src={polygonUrl} alt="" class="step-arrow-m" />
+                        <div class="step-m">
+                            <img src={hourglassUrl} alt="" class="step-icon-m" />
+                            <p class="step-label-m">Offer</p>
+                            <p class="step-label-m">Discussion</p>
+                        </div>
+                        <img src={polygonUrl} alt="" class="step-arrow-m" />
+                        <div class="step-m">
+                            <img src={thumbUpUrl} alt="" class="step-icon-m" />
+                            <p class="step-label-m">Final</p>
+                            <p class="step-label-m">Acceptance</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <p class="recruit-note">
+                This is the first step toward growing with DAEUnextier.<br />
+                We carefully review each candidate's experience and potential.
+            </p>
+        </div>
+
+        <!-- ── OPEN POSITIONS ── -->
+        <div class="positions-section">
+            <h2 class="section-heading section-heading--center">Open Positions</h2>
+            <div class="positions-grid">
+                <template for:each={positions} for:item="pos">
+                    <div key={pos.id} class="position-card">
+                        <div class="position-header">
+                            <p class="position-title">{pos.title}</p>
+                            <span class="position-badge">{pos.badge}</span>
+                        </div>
+                        <div class="position-fields">
+                            <template for:each={pos.fields} for:item="field">
+                                <div key={field.id} class="position-field">
+                                    <span class="field-label">{field.label}</span>
+                                    <span class="field-value">{field.value}</span>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="position-desc-block">
+                            <p class="job-desc-label">Job Description</p>
+                            <div class="job-desc-box">
+                                <p class="job-desc-text">{pos.jobDescription}</p>
+                            </div>
+                        </div>
+                        <button class="apply-btn" type="button" aria-label="Apply Now">
+                            <span class="apply-text">Apply Now</span>
+                            <img src={arrowUrl} alt="" class="apply-icon" />
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+    </div>
+</template>

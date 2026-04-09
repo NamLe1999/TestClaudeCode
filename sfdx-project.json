@@ -3,10 +3,22 @@
     {
       "path": "force-app",
       "default": true
+    },
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "artifacts/unlocked-packages/gdc-culture/20260403/package-force-app",
+      "default": false,
+      "package": "gdc-culture",
+      "versionDescription": ""
     }
   ],
   "name": "TestClaudeCode",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "66.0"
+  "sourceApiVersion": "66.0",
+  "packageAliases": {
+    "gdc-culture": "0HogK0000001DHlSAM",
+    "gdc-culture@0.1.0-1": "04tgK000000BSIjQAO"
+  }
 }

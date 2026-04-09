@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Preview HTML Server",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", ".", "--listen", "3000", "--no-clipboard"],
+      "port": 3000
+    },
+    {
+      "name": "LWC Jest Watch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test:unit:watch"],
+      "port": 9229
+    }
+  ]
+}

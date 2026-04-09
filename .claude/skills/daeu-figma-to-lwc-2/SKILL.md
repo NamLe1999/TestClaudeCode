@@ -23,7 +23,7 @@ This skill guides Claude to read designs from Figma (via Figma MCP) and convert 
 | **Images / Icons** | Use exact assets from Figma, don't replace with placeholders |
 | **States (hover, disabled, active)** | Implement exactly as described in Figma |
 
-**Only exception allowed:** Adjust layout by viewport (responsive) — mobile/tablet/desktop — as described in Step 2. All other changes require user consent.
+**Only exception allowed:** Adjust layout by viewport (responsive) — mobile/tablet/desktop — as described in Steps 2 & 3. All other changes require user consent.
 
 ---
 
@@ -178,12 +178,15 @@ Handle component name in the following priority order:
 
 **If Web only provided:**
 → Build ONLY Web UI (≥1024px). Component will NOT work on tablet or mobile.
+→ ⚠️ **STILL REQUIRED**: UI must scale fluidly from 1024px to 2560px. Use `clamp()`, `1fr`, `min-height`, `width: 100%` — no fixed px widths or heights on layout elements. See "Within-Desktop Viewport Consistency" rules in Step 3.
 
 **If Tablet only provided:**
 → Build ONLY Tablet UI (768-1023px). Component will NOT work on desktop or mobile.
+→ ⚠️ **STILL REQUIRED**: UI must scale fluidly across the full 768–1023px range. Use `clamp()`, `1fr`, `min-height` — no fixed px widths/heights on layout elements.
 
 **If Mobile only provided:**
 → Build ONLY Mobile UI (<768px). Component will NOT work on desktop or tablet.
+→ ⚠️ **STILL REQUIRED**: UI must scale fluidly across the full mobile range (320px–767px). Use `clamp()`, `width: 100%`, `min-height` — no fixed px widths/heights on layout elements.
 
 **If Web + Mobile provided:**
 → Build Web UI (≥1024px) + Mobile UI (<768px). Tablet viewport (768-1023px) will use Mobile UI styles.
@@ -436,7 +439,7 @@ export default class ComponentName extends LightningElement {
 
 ---
 
-## Step 2b — 🔴 CRITICAL: Proportional Scaling (No Hard-coded Values)
+## Step 3 — 🔴 CRITICAL: Proportional Scaling (No Hard-coded Values)
 
 > **This is a mandatory rule. Fixed pixel values for dimensions, gaps, and spacing cause the UI to break at different viewport widths within the same device category. All layout-affecting values MUST be converted to fluid/proportional equivalents.**
 
@@ -611,6 +614,139 @@ h2 {
 }
 ```
 
+### 🔴 CRITICAL: Within-Desktop Viewport Consistency
+
+> **Even when only 1 Web UI (desktop) is provided, the UI must look identical and consistent across ALL viewport widths within the desktop range (1024px → 2560px+). Breaking at 1200px vs 1440px is a bug.**
+
+#### Problem Pattern to Avoid
+
+When Figma shows 3 cards in a row at 1440px canvas, a common mistake is:
+
+```css
+/* ❌ WRONG — looks correct at 1440px but breaks at 1200px */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 380px); /* fixed pixel columns */
+    gap: 24px;
+}
+.card {
+    width: 380px;          /* fixed width */
+    height: 260px;         /* fixed height — KILLS text wrapping */
+    overflow: hidden;      /* text gets cut off */
+}
+.card-number {
+    font-size: 48px;       /* too large at narrow viewports */
+}
+```
+
+#### Mandatory Rules for Card / Tile Grid Layouts
+
+**Rule 1 — Preserve Figma column count using `fr` units, not pixels:**
+```css
+/* Figma shows 3 columns → use repeat(3, 1fr) */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);      /* ✅ fluid columns */
+    gap: clamp(12px, 1.67vw, 24px);
+}
+
+/* If Figma shows 2 columns */
+.card-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(12px, 1.67vw, 24px);
+}
+```
+
+**Rule 2 — Grid/flex children MUST have `width: 100%; min-width: 0`:**
+```css
+/* ✅ CORRECT — card fills its grid column, never overflows */
+.card {
+    width: 100%;       /* fills the 1fr column */
+    min-width: 0;      /* prevents overflow blowout in grid */
+    /* aspect-ratio for image cards only: */
+    /* aspect-ratio: 38 / 26; */
+}
+```
+
+**Rule 3 — NEVER fixed height on containers that hold text:**
+```css
+/* ❌ WRONG */
+.card { height: 260px; }
+.card-body { height: 180px; }
+
+/* ✅ CORRECT */
+.card {
+    min-height: clamp(160px, 18vw, 260px);  /* minimum, can grow */
+    height: auto;                            /* expands with content */
+}
+.card-body {
+    /* no height — let text wrap naturally */
+    padding: clamp(16px, 2vw, 28px);
+}
+```
+
+**Rule 4 — Typography inside cards MUST scale with viewport:**
+```css
+/* ❌ WRONG — same size regardless of card width */
+.card-number { font-size: 48px; }
+.card-text   { font-size: 16px; }
+
+/* ✅ CORRECT — scales with viewport */
+.card-number { font-size: clamp(28px, 3.33vw, 48px); }
+.card-text   { font-size: clamp(13px, 1.11vw, 16px); line-height: 1.5; }
+```
+
+**Rule 5 — Text must always wrap, never truncate silently:**
+```css
+/* Always add to text elements inside cards */
+.card-text, .card-title, .card-label {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    /* NEVER: white-space: nowrap; text-overflow: ellipsis; overflow: hidden */
+}
+```
+
+#### Full Correct Example — 3-Column Card Grid (Web Only)
+
+```css
+/* ✅ CORRECT — consistent from 1024px to 2560px */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.67vw, 24px);
+    padding: clamp(24px, 3.33vw, 48px);
+}
+
+.card {
+    width: 100%;
+    min-width: 0;
+    min-height: clamp(160px, 18vw, 260px);
+    height: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: clamp(16px, 2vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 0.83vw, 12px);
+}
+
+.card-number {
+    font-size: clamp(28px, 3.33vw, 48px);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.card-label {
+    font-size: clamp(13px, 1.11vw, 16px);
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+```
+
+---
+
 ### Detection Checklist — Values Claude MUST Convert
 
 When reading Figma design context, Claude scans for **all occurrences** of these and converts each one:
@@ -663,12 +799,13 @@ DO NOT CONVERT (keep fixed):
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));  /* ALWAYS 3 cols */
-    gap: var(--gap);
+    grid-template-columns: repeat(auto-fill, minmax(clamp(240px, 26.4vw, 380px), 1fr));
+    gap: clamp(12px, 1.67vw, 24px);           /* 24/1440*100 = 1.67vw */
+}
 
 .card {
     width: 100%;
-    min-height: auto;                         /* grows with content, never fixed */
+    aspect-ratio: 380 / 260;                  /* exact ratio from Figma */
 }
 
 .heading {
@@ -832,313 +969,7 @@ export default class ComponentName extends LightningElement {
 
 ---
 
-## Step 2b-overflow — 🔴 CRITICAL: Prevent Container Overflow (vw vs flex %)
-
-> **Root cause:** `vw`-based `clamp()` values are relative to the full **viewport width**, but a grid/flex container inside a padded wrapper has available width = `viewport − 2×padding`. At intermediate viewport sizes, the two don't cancel out perfectly → cards overflow the container.
-
-```
-Viewport:    |←──────────── 1440px ────────────→|
-Container:   |← pad 48px →|← 1344px →|← pad 48px →|
-                            ↑ available ≠ 1440px
-
-vw child:    26.4vw = 380px  (relative to 1440px) → can exceed 1/3 of 1344px
-flex child:  flex: 1  or  33.33%                  → always fits container
-```
-
-### The Fix — Use Flex/Grid % Sizing for Columns, Not vw
-
-**Rule:** `vw` is safe for **container-level padding** and **font-size**. For **column widths and gaps inside a padded container**, use `flex`/`fr` units or `%`.
-
-```css
-/* ❌ WRONG — vw column min overflows padded container */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(clamp(240px, 26.4vw, 380px), 1fr));
-    gap: clamp(12px, 1.67vw, 24px);
-}
-
-/* ✅ CORRECT (fixed N columns) — fr fills available container space */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);   /* 1fr = 1/3 of container, always */
-    gap: clamp(12px, 1.67vw, 24px);
-    box-sizing: border-box;
-}
-
-/* ✅ CORRECT (variable columns) — fixed px min, not vw */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: clamp(12px, 1.67vw, 24px);
-    box-sizing: border-box;
-}
-```
-
-**For flex layouts:**
-```css
-/* ❌ WRONG — flex-basis in vw overflows */
-.card { flex: 0 0 clamp(240px, 26.4vw, 380px); }
-
-/* ✅ CORRECT — percentage flex-basis is relative to flex container */
-.card { flex: 1 1 30%; }         /* or flex: 1 to share space equally */
-```
-
-### Container Must Use box-sizing: border-box
-
-Always set on the wrapper so padding is included in width calculation:
-
-```css
-.card-grid-wrapper {
-    width: 100%;
-    box-sizing: border-box;   /* padding is included — prevents overflow */
-    padding: clamp(24px, 3.33vw, 48px);
-}
-```
-
-### Quick Reference — When to Use vw vs flex/%
-
-| Property | Safe approach | Reason |
-|---|---|---|
-| Container padding | `clamp(Xpx, Yvw, Zpx)` | Container = viewport width |
-| font-size | `clamp(Xpx, Yvw, Zpx)` | Typography = viewport-relative |
-| Column widths in grid | `1fr` or `repeat(N, 1fr)` | fr = fraction of container |
-| flex children width | `flex: 1` or `flex-basis: X%` | % = fraction of flex container |
-| gap | `clamp(Xpx, Yvw, Zpx)` | Small values — vw OK for gap |
-| minmax min (fixed cols) | `0` → `repeat(N, 1fr)` | No min needed with fixed cols |
-| minmax min (auto cols) | Fixed `px` (e.g. `280px`) | Prevents column count change |
-
----
-
-## Step 2c — 🔴 CRITICAL: Desktop Consistency (Same Breakpoint, Different Resolutions)
-
-> **Problem: The same component looks completely different at 1366px vs 1920px desktop — even though both are "desktop" (≥1024px). This happens when cards have fixed heights, text is clipped, or grid columns don't scale gracefully within the same breakpoint.**
-
-### Root Causes & Mandatory Fixes
-
-#### ❌ Problem 1: Fixed height on cards → text gets clipped at narrower desktop widths
-
-At 1920px each card column is ~480px wide → 1-line text.  
-At 1366px each card column is ~341px wide → text wraps to 2 lines → hits fixed height → **text gets cut off**.
-
-```css
-/* ❌ WRONG — fixed height causes text clipping */
-.card {
-    height: 200px;
-    overflow: hidden;
-}
-
-/* ✅ CORRECT — card grows with content */
-.card {
-    min-height: clamp(140px, 13.9vw, 200px);
-    height: auto;          /* ALWAYS auto for card containers */
-    overflow: visible;
-}
-```
-
-#### ❌ Problem 2: `-webkit-line-clamp` on critical content
-
-Line clamp is based on number of lines, not content. At narrower widths, the same text takes more lines → critical words get cut.
-
-```css
-/* ❌ WRONG — do NOT use line-clamp on main content */
-.card-title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* ✅ CORRECT — let text flow naturally */
-.card-title {
-    /* No line-clamp, no overflow hidden, no fixed height */
-    white-space: normal;
-    word-break: break-word;
-}
-```
-
-> **Rule:** Only use `-webkit-line-clamp` for **supplementary/preview text** (e.g., article excerpt, description preview) — **NEVER** for titles, labels, or any text that must be fully readable.
-
-#### ❌ Problem 3: `overflow: hidden` on text containers
-
-```css
-/* ❌ WRONG */
-.card-body {
-    height: 80px;
-    overflow: hidden;   /* clips text at narrow widths */
-}
-
-/* ✅ CORRECT */
-.card-body {
-    min-height: 80px;
-    height: auto;
-    overflow: visible;
-}
-```
-
-#### ❌ Problem 4: Fixed-column grid that makes cards too narrow
-
-Using `repeat(3, 1fr)` on a container that itself scales down makes each card shrink at smaller resolutions.
-
-```css
-/* ❌ WRONG — 3 columns always, cards shrink indefinitely */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-/* ✅ CORRECT — 3 columns fixed, but guard minimum card width */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(12px, 1.67vw, 24px);
-    min-width: 0;
-}
-
-/* Guard: if cards get too narrow for content, allow horizontal scroll */
-.card-grid-wrapper {
-    overflow-x: auto;
-    min-width: 0;
-}
-```
-
-> **Rule:** When Figma shows a **fixed N-column layout** (e.g., always 3 columns on desktop), use `repeat(N, minmax(0, 1fr))` — NOT `repeat(N, 1fr)` — to prevent overflow AND not `repeat(auto-fill, ...)` which would change column count.
-
-#### ❌ Problem 5: Decorative shapes with fixed px size
-
-Decorative circles/blobs that are sized in fixed px will look disproportionate at different resolutions.
-
-```css
-/* ❌ WRONG */
-.decorative-circle {
-    width: 180px;
-    height: 180px;
-}
-
-/* ✅ CORRECT — scale with viewport */
-.decorative-circle {
-    width: clamp(80px, 12.5vw, 180px);
-    aspect-ratio: 1;           /* always a perfect circle */
-    height: auto;
-}
-```
-
----
-
-### Desktop Consistency Checklist — Claude MUST verify before writing CSS
-
-Before writing any CSS for a desktop-only or desktop-primary component, check every item:
-
-```
-CARD / ITEM CONTAINERS:
-  ✦ height: auto or min-height only — NEVER fixed height on containers with text
-  ✦ overflow: visible on any container that holds text — NEVER overflow: hidden
-  ✦ NO -webkit-line-clamp on titles, labels, or critical content
-
-GRID LAYOUTS:
-  ✦ Fixed column count → use repeat(N, minmax(0, 1fr)), NOT repeat(N, 1fr)
-  ✦ Auto column count → use repeat(auto-fill, minmax(clamp(...), 1fr))
-  ✦ gap → always clamp(MIN, Xvw, MAX), never fixed px
-
-TEXT ELEMENTS:
-  ✦ font-size → clamp() so it scales between resolutions
-  ✦ word-break: break-word on any text that might wrap
-  ✦ NO white-space: nowrap unless intentionally single-line (e.g., button label)
-
-DECORATIVE / BACKGROUND SHAPES:
-  ✦ Use clamp() for width/height, never fixed px
-  ✦ Use aspect-ratio: 1 for circles/squares — never both width AND height in fixed px
-
-PADDING / GAP / MARGIN:
-  ✦ All values → clamp(MIN, Xvw, MAX) per Step 2b rules
-  ✦ MIN value must be large enough to keep content readable (never < 8px for padding)
-```
-
----
-
-### Full Example — Card Grid That Stays Consistent Across Desktop Resolutions
-
-**Scenario:** Figma shows 3-column card grid (canvas 1440px). Card: 380×200px, gap: 24px, card padding: 24px, title font-size: 18px.
-
-```html
-<!-- component.html -->
-<template>
-    <div class="grid-wrapper">
-        <div class="card-grid">
-            <template for:each={items} for:item="item">
-                <div key={item.id} class="card">
-                    <span class="card-number">{item.number}</span>
-                    <p class="card-label">{item.label}</p>
-                    <div class="card-deco" aria-hidden="true"></div>
-                </div>
-            </template>
-        </div>
-    </div>
-</template>
-```
-
-```css
-/* component.css */
-:host {
-    --gap:        clamp(12px, 1.67vw, 24px);
-    --card-pad:   clamp(12px, 1.67vw, 24px);
-    --title-size: clamp(14px, 1.25vw, 18px);
-    --num-size:   clamp(28px, 3.33vw, 48px);
-}
-
-.grid-wrapper {
-    overflow-x: auto;          /* allow scroll if viewport is very narrow */
-    min-width: 0;
-}
-
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));  /* fr fills container, no vw */
-    gap: var(--gap);
-}
-
-.card {
-    position: relative;
-    padding: var(--card-pad);
-    min-height: clamp(120px, 13.9vw, 200px);  /* 200/1440 */
-    height: auto;              /* ✅ grow with content */
-    overflow: visible;         /* ✅ never clip text */
-    border-radius: 12px;
-    border: 1px solid #c9e8f5;
-    background: #f0f8ff;
-}
-
-.card-number {
-    display: block;
-    font-size: var(--num-size);
-    font-weight: 700;
-    color: #1a9fd8;
-    line-height: 1.1;
-}
-
-.card-label {
-    font-size: var(--title-size);
-    line-height: 1.5;
-    margin-top: clamp(6px, 0.83vw, 12px);
-    /* ✅ NO line-clamp, NO overflow: hidden, NO fixed height */
-    word-break: break-word;
-}
-
-.card-deco {
-    position: absolute;
-    bottom: -10%;
-    right: -5%;
-    width: clamp(60px, 8.3vw, 120px);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: rgba(100, 190, 230, 0.15);
-    pointer-events: none;
-}
-```
-
----
-
-## Step 7 — Mapping Figma → LWC
+## Step 4 — Mapping Figma → LWC
 
 | Figma Element | LWC Equivalent |
 |---------------|----------------|
@@ -1159,7 +990,7 @@ PADDING / GAP / MARGIN:
 
 ---
  
-## Step 8 — Handle Images and SVG Icons in LWC
+## Step 5 — Handle Images and SVG Icons in LWC
 
 ### Asset handling from Static Resource folder
 
@@ -1422,7 +1253,7 @@ export default class ComponentName extends LightningElement {
 
 ---
 
-## Step 9 — Create Metadata File
+## Step 6 — Create Metadata File
 
 **Before creating .js-meta.xml file, always ask user for apiVersion:**
 
@@ -1462,7 +1293,7 @@ export default class ComponentName extends LightningElement {
 
 ---
  
-## Step 10 — Output
+## Step 7 — Output
  
 Create LWC files in `/mnt/user-data/outputs/` following Salesforce structure:
  

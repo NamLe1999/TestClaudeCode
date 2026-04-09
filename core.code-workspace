@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "c:/Nam Le/AI Research/TestClaudeCode"
+    }
+  ],
+  "settings": {
+    "eslint.workingDirectories": [
+      "c:/Nam Le/AI Research/TestClaudeCode"
+    ],
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "eslint.options": {
+      "overrideConfigFile": "c:\\Nam Le\\AI Research\\TestClaudeCode\\.eslintrc.json"
+    }
+  }
+}
