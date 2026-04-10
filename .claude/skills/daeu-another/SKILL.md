@@ -1,5 +1,5 @@
 ---
-name: daeu-figma-to-lwc
+name: daeu-another
 description: "Convert Figma designs into Lightning Web Components (LWC) for Salesforce. Use this skill whenever the user wants to read a Figma file and generate LWC code, translate UI designs into Salesforce components, convert mockups or wireframes into .html/.js/.css LWC files, or asks anything involving Figma and LWC, design to Salesforce component, Figma to component, or thiet ke Figma sang LWC. Always trigger this skill when Figma design context is combined with any mention of LWC, Salesforce, or web components."
 ---
 
@@ -23,7 +23,7 @@ This skill guides Claude to read designs from Figma (via Figma MCP) and convert 
 | **Images / Icons** | Use exact assets from Figma, don't replace with placeholders |
 | **States (hover, disabled, active)** | Implement exactly as described in Figma |
 
-**Only exception allowed:** Adjust layout by viewport (responsive) — mobile/tablet/desktop — as described in Steps 2 & 3. All other changes require user consent.
+**Only exception allowed:** Adjust layout by viewport (responsive) — mobile/tablet/desktop — as described in Step 2. All other changes require user consent.
 
 ---
 
@@ -178,15 +178,12 @@ Handle component name in the following priority order:
 
 **If Web only provided:**
 → Build ONLY Web UI (≥1024px). Component will NOT work on tablet or mobile.
-→ ⚠️ **STILL REQUIRED**: UI must scale fluidly from 1024px to 2560px. Use `clamp()`, `1fr`, `min-height`, `width: 100%` — no fixed px widths or heights on layout elements. See "Within-Desktop Viewport Consistency" rules in Step 3.
 
 **If Tablet only provided:**
 → Build ONLY Tablet UI (768-1023px). Component will NOT work on desktop or mobile.
-→ ⚠️ **STILL REQUIRED**: UI must scale fluidly across the full 768–1023px range. Use `clamp()`, `1fr`, `min-height` — no fixed px widths/heights on layout elements.
 
 **If Mobile only provided:**
 → Build ONLY Mobile UI (<768px). Component will NOT work on desktop or tablet.
-→ ⚠️ **STILL REQUIRED**: UI must scale fluidly across the full mobile range (320px–767px). Use `clamp()`, `width: 100%`, `min-height` — no fixed px widths/heights on layout elements.
 
 **If Web + Mobile provided:**
 → Build Web UI (≥1024px) + Mobile UI (<768px). Tablet viewport (768-1023px) will use Mobile UI styles.
@@ -439,7 +436,7 @@ export default class ComponentName extends LightningElement {
 
 ---
 
-## Step 3 — 🔴 CRITICAL: Proportional Scaling (No Hard-coded Values)
+## Step 2b — 🔴 CRITICAL: Proportional Scaling (No Hard-coded Values)
 
 > **This is a mandatory rule. Fixed pixel values for dimensions, gaps, and spacing cause the UI to break at different viewport widths within the same device category. All layout-affecting values MUST be converted to fluid/proportional equivalents.**
 
@@ -613,139 +610,6 @@ h2 {
     font-size: var(--scale-text-xl);
 }
 ```
-
-### 🔴 CRITICAL: Within-Desktop Viewport Consistency
-
-> **Even when only 1 Web UI (desktop) is provided, the UI must look identical and consistent across ALL viewport widths within the desktop range (1024px → 2560px+). Breaking at 1200px vs 1440px is a bug.**
-
-#### Problem Pattern to Avoid
-
-When Figma shows 3 cards in a row at 1440px canvas, a common mistake is:
-
-```css
-/* ❌ WRONG — looks correct at 1440px but breaks at 1200px */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 380px); /* fixed pixel columns */
-    gap: 24px;
-}
-.card {
-    width: 380px;          /* fixed width */
-    height: 260px;         /* fixed height — KILLS text wrapping */
-    overflow: hidden;      /* text gets cut off */
-}
-.card-number {
-    font-size: 48px;       /* too large at narrow viewports */
-}
-```
-
-#### Mandatory Rules for Card / Tile Grid Layouts
-
-**Rule 1 — Preserve Figma column count using `fr` units, not pixels:**
-```css
-/* Figma shows 3 columns → use repeat(3, 1fr) */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);      /* ✅ fluid columns */
-    gap: clamp(12px, 1.67vw, 24px);
-}
-
-/* If Figma shows 2 columns */
-.card-grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(12px, 1.67vw, 24px);
-}
-```
-
-**Rule 2 — Grid/flex children MUST have `width: 100%; min-width: 0`:**
-```css
-/* ✅ CORRECT — card fills its grid column, never overflows */
-.card {
-    width: 100%;       /* fills the 1fr column */
-    min-width: 0;      /* prevents overflow blowout in grid */
-    /* aspect-ratio for image cards only: */
-    /* aspect-ratio: 38 / 26; */
-}
-```
-
-**Rule 3 — NEVER fixed height on containers that hold text:**
-```css
-/* ❌ WRONG */
-.card { height: 260px; }
-.card-body { height: 180px; }
-
-/* ✅ CORRECT */
-.card {
-    min-height: clamp(160px, 18vw, 260px);  /* minimum, can grow */
-    height: auto;                            /* expands with content */
-}
-.card-body {
-    /* no height — let text wrap naturally */
-    padding: clamp(16px, 2vw, 28px);
-}
-```
-
-**Rule 4 — Typography inside cards MUST scale with viewport:**
-```css
-/* ❌ WRONG — same size regardless of card width */
-.card-number { font-size: 48px; }
-.card-text   { font-size: 16px; }
-
-/* ✅ CORRECT — scales with viewport */
-.card-number { font-size: clamp(28px, 3.33vw, 48px); }
-.card-text   { font-size: clamp(13px, 1.11vw, 16px); line-height: 1.5; }
-```
-
-**Rule 5 — Text must always wrap, never truncate silently:**
-```css
-/* Always add to text elements inside cards */
-.card-text, .card-title, .card-label {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    /* NEVER: white-space: nowrap; text-overflow: ellipsis; overflow: hidden */
-}
-```
-
-#### Full Correct Example — 3-Column Card Grid (Web Only)
-
-```css
-/* ✅ CORRECT — consistent from 1024px to 2560px */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(12px, 1.67vw, 24px);
-    padding: clamp(24px, 3.33vw, 48px);
-}
-
-.card {
-    width: 100%;
-    min-width: 0;
-    min-height: clamp(160px, 18vw, 260px);
-    height: auto;
-    background: #fff;
-    border-radius: 12px;
-    padding: clamp(16px, 2vw, 28px);
-    display: flex;
-    flex-direction: column;
-    gap: clamp(8px, 0.83vw, 12px);
-}
-
-.card-number {
-    font-size: clamp(28px, 3.33vw, 48px);
-    font-weight: 700;
-    line-height: 1;
-}
-
-.card-label {
-    font-size: clamp(13px, 1.11vw, 16px);
-    line-height: 1.5;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-```
-
----
 
 ### Detection Checklist — Values Claude MUST Convert
 
@@ -969,7 +833,7 @@ export default class ComponentName extends LightningElement {
 
 ---
 
-## Step 4 — Mapping Figma → LWC
+## Step 7 — Mapping Figma → LWC
 
 | Figma Element | LWC Equivalent |
 |---------------|----------------|
@@ -990,7 +854,7 @@ export default class ComponentName extends LightningElement {
 
 ---
  
-## Step 5 — Handle Images and SVG Icons in LWC
+## Step 8 — Handle Images and SVG Icons in LWC
 
 ### Asset handling from Static Resource folder
 
@@ -1253,7 +1117,7 @@ export default class ComponentName extends LightningElement {
 
 ---
 
-## Step 6 — Create Metadata File
+## Step 9 — Create Metadata File
 
 **Before creating .js-meta.xml file, always ask user for apiVersion:**
 
@@ -1293,7 +1157,7 @@ export default class ComponentName extends LightningElement {
 
 ---
  
-## Step 7 — Output
+## Step 10 — Output
  
 Create LWC files in `/mnt/user-data/outputs/` following Salesforce structure:
  

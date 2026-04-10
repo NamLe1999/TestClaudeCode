@@ -53,44 +53,48 @@ public with sharing class AccountController {
      */
     @AuraEnabled(cacheable=true)
     public static Account getAccountById(Id accountId) {
-        Account acc = [
-            SELECT
-                Id,
-                Name,
-                AccountNumber,
-                Type,
-                Industry,
-                AnnualRevenue,
-                NumberOfEmployees,
-                Rating,
-                Phone,
-                Fax,
-                Website,
-                Description,
-                OwnerId,
-                Owner.Name,
-                ParentId,
-                Parent.Name,
-                BillingStreet,
-                BillingCity,
-                BillingState,
-                BillingPostalCode,
-                BillingCountry,
-                ShippingStreet,
-                ShippingCity,
-                ShippingState,
-                ShippingPostalCode,
-                ShippingCountry,
-                CreatedById,
-                CreatedDate,
-                LastModifiedById,
-                LastModifiedDate
-            FROM Account
-            WHERE Id = :accountId
-            WITH SECURITY_ENFORCED
-            LIMIT 1
-        ];
-        return acc;
+        try {
+            Account acc = [
+                SELECT
+                    Id,
+                    Name,
+                    AccountNumber,
+                    Type,
+                    Industry,
+                    AnnualRevenue,
+                    NumberOfEmployees,
+                    Rating,
+                    Phone,
+                    Fax,
+                    Website,
+                    Description,
+                    OwnerId,
+                    Owner.Name,
+                    ParentId,
+                    Parent.Name,
+                    BillingStreet,
+                    BillingCity,
+                    BillingState,
+                    BillingPostalCode,
+                    BillingCountry,
+                    ShippingStreet,
+                    ShippingCity,
+                    ShippingState,
+                    ShippingPostalCode,
+                    ShippingCountry,
+                    CreatedById,
+                    CreatedDate,
+                    LastModifiedById,
+                    LastModifiedDate
+                FROM Account
+                WHERE Id = :accountId
+                WITH SECURITY_ENFORCED
+                LIMIT 1
+            ];
+            return acc;
+        } catch (Exception e) {
+            throw new AuraHandledException('Account not found for Id: ' + accountId + '. ' + e.getMessage());
+        }
     }
 
     /**

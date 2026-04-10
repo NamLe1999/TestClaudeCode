@@ -1,0 +1,823 @@
+/* ══════════════════════════════════════════════════
+   DESIGN TOKENS
+   Canvas ref: Mobile = 360px | Desktop = 1920px
+   ══════════════════════════════════════════════════ */
+:host {
+    --color-white:     #FFFFFF;
+    --color-black-900: #050505;
+    --color-black-800: #666666;
+    --color-black-700: #8A8A8A;
+    --color-black-400: #CCCCCC;
+    --color-black-300: #D9D9D9;
+    --color-black-100: #F7F7F7;
+    --color-blue-600:  #0079C5;
+    --color-blue-500:  #00A1E0;
+    --color-blue-400:  #7BCFEF;
+    --color-blue-100:  #F6FCFF;
+    --color-blue-op10: rgba(0, 161, 224, 0.1);
+
+    --font-pretendard: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ══════════════════════════════════════════════════
+   BASE — MOBILE FIRST  (<768px and 768–1023px)
+   ══════════════════════════════════════════════════ */
+
+/* ── Root container ── */
+.namdemo-root {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    padding: 120px 24px;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--color-white);
+}
+
+/* ── Intro Section ── */
+.intro-section {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.intro-sub-wrap,
+.intro-main-wrap {
+    display: block;
+}
+
+.intro-sub {
+    font-family: var(--font-pretendard);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--color-black-700);
+    margin: 0;
+    white-space: pre-line;
+}
+
+.intro-main {
+    font-family: var(--font-pretendard);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--color-black-900);
+    margin: 0;
+}
+
+.intro-highlight {
+    color: var(--color-blue-500);
+}
+
+/* ── Values — Mobile layout ── */
+.values-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.vm-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.vm-card {
+    position: relative;
+    width: 150px;
+    height: 130px;
+    border: 1px solid var(--color-blue-400);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    box-sizing: border-box;
+    background: var(--color-white);
+    flex-shrink: 0;
+}
+
+.vm-card--blue-bg { background: var(--color-blue-100); }
+
+.vm-card--full {
+    width: 100%;
+}
+
+/* Ellipse decorations inside mobile cards — absolutely positioned gradient circles */
+.vm-ellipse {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 45% 45%,
+        rgba(123, 207, 239, 0.75) 0%,
+        rgba(123, 207, 239, 0.45) 30%,
+        rgba(184, 232, 248, 0.25) 55%,
+        rgba(246, 252, 255, 0.1) 75%,
+        transparent 100%
+    );
+}
+
+.vm-card--1 .vm-ellipse { left: 33%;  top: 22%;   width: 133%; }
+.vm-card--2 .vm-ellipse { left: 17%;  top: -95%;  width: 164%; }
+.vm-card--3 .vm-ellipse { left: 43%;  top: -16%;  width: 113%; }
+.vm-card--4 .vm-ellipse { left: -67%; top: 22%;   width: 133%; }
+.vm-card--5 .vm-ellipse { left: -64%; top: -19%;  width: 128%; }
+
+.vm-num {
+    font-family: var(--font-pretendard);
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 1.2;
+    color: var(--color-blue-500);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+    margin: 0;
+}
+
+.vm-label {
+    font-family: var(--font-pretendard);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--color-black-900);
+    letter-spacing: -0.64px;
+    text-transform: capitalize;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.vm-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: radial-gradient(circle at 45% 45%,
+        rgba(123, 207, 239, 0.75) 0%,
+        rgba(123, 207, 239, 0.45) 30%,
+        rgba(184, 232, 248, 0.25) 55%,
+        rgba(246, 252, 255, 0.1) 75%,
+        transparent 100%
+    );
+}
+
+/* ── Recruitment Section ── */
+.recruitment-section {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+}
+
+.section-heading {
+    font-family: var(--font-pretendard);
+    font-weight: 700;
+    font-size: 30px;
+    line-height: normal;
+    color: var(--color-black-900);
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/* Mobile process box */
+.process-box-mobile {
+    border: 1px solid var(--color-black-400);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pm-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pm-middle {
+    border-top: 1px solid var(--color-black-300);
+    border-bottom: 1px solid var(--color-black-300);
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pm-step {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.pm-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.pm-label {
+    font-family: var(--font-pretendard);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--color-black-900);
+    text-align: center;
+    text-transform: capitalize;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.pm-sub {
+    display: block;
+    font-size: 14px;
+}
+
+.pm-arrow {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.process-note {
+    font-family: var(--font-pretendard);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--color-blue-600);
+    opacity: 0.6;
+    margin: 0;
+    width: 100%;
+}
+
+/* ── Open Positions Section ── */
+.positions-section {
+    border-top: 1px solid var(--color-black-300);
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+.positions-heading {
+    text-align: center;
+}
+
+.positions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+
+.pos-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-black-300);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 470px;
+    overflow: hidden;
+    box-shadow: 2px 8px 30px 0px rgba(118, 167, 209, 0.25);
+    box-sizing: border-box;
+}
+
+.pos-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.pos-title {
+    font-family: var(--font-pretendard);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+    color: var(--color-black-900);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pos-badge {
+    background: var(--color-blue-500);
+    color: var(--color-white);
+    font-family: var(--font-pretendard);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 8px 12px;
+    border-radius: 40px;
+    width: 69px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.pos-details {
+    border-top: 1px solid var(--color-black-400);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.detail-row {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.detail-key {
+    font-family: var(--font-pretendard);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-black-900);
+    letter-spacing: -0.56px;
+    flex: 1;
+    min-width: 0;
+}
+
+.detail-val {
+    font-family: var(--font-pretendard);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-black-800);
+    letter-spacing: -0.56px;
+    flex: 1;
+    min-width: 0;
+}
+
+.pos-desc {
+    border-top: 1px solid var(--color-black-400);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.desc-label {
+    font-family: var(--font-pretendard);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--color-blue-500);
+    letter-spacing: -0.56px;
+    margin: 0;
+}
+
+.desc-box {
+    background: var(--color-black-100);
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.desc-text {
+    font-family: var(--font-pretendard);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--color-black-800);
+    letter-spacing: -0.48px;
+    margin: 0;
+    height: 54px;
+    overflow: hidden;
+}
+
+/* ── Apply Now button ── */
+.apply-btn {
+    background: var(--color-blue-op10);
+    border: 1px solid var(--color-blue-500);
+    border-radius: 800px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-sizing: border-box;
+}
+
+.apply-btn-text {
+    font-family: var(--font-pretendard);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: normal;
+    color: var(--color-blue-500);
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Arrow slide animation */
+.apply-btn-arrow-wrap {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 192px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.apply-arrow {
+    position: absolute;
+    width: 15px;
+    height: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: right 0.2s ease;
+    display: block;
+}
+
+.apply-arrow--enter { right: 27px; } /* off-screen left */
+.apply-arrow--show  { right: 4px;  } /* visible */
+
+.apply-btn:hover .apply-arrow--enter { right: 4px;   }
+.apply-btn:hover .apply-arrow--show  { right: -20px; }
+
+
+/* ══════════════════════════════════════════════════
+   DESKTOP  (≥1024px)
+   All clamp() use canvas 1920px as reference:
+   preferred = (figma_px / 1920) * 100vw
+   ══════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+
+    /* ── Root ── */
+    .namdemo-root {
+        gap:     clamp(80px,  8.33vw, 160px);
+        padding: clamp(50px,  5.21vw, 100px)
+                 clamp(80px,  8.33vw, 160px)
+                 clamp(80px,  8.33vw, 160px);
+    }
+
+    /* ── Hero Section ── */
+    .hero-section {
+        position: relative;
+        min-height: clamp(260px, 27.08vw, 520px);
+        height: auto;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: clamp(20px, 2.08vw, 40px);
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(38, 108, 157, 0.1);
+        border-radius: 20px;
+        pointer-events: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+    }
+
+    .hero-line {
+        font-family: var(--font-pretendard);
+        font-weight: 700;
+        font-size: clamp(24px, 2.4vw, 46px);
+        line-height: 1.4;
+        color: var(--color-white);
+        text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        margin: 0;
+    }
+
+    /* ── Intro Section ── */
+    .intro-section {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 0;
+        min-height: clamp(102px, 10.63vw, 204px);
+        padding: 0 clamp(20px, 2.08vw, 40px);
+    }
+
+    .intro-sub-wrap {
+        flex: 0 0 33.75%; /* 540 / 1600 */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-self: stretch;
+    }
+
+    .intro-main-wrap {
+        flex: 0 0 38.125%; /* 610 / 1600 */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-self: stretch;
+    }
+
+    .intro-sub {
+        font-size: clamp(16px, 1.67vw, 32px);
+        white-space: normal;
+    }
+
+    .intro-main {
+        font-size: clamp(16px, 1.67vw, 32px);
+    }
+
+    /* ── Values — Desktop layout ── */
+    .values-desktop {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px, 1.04vw, 20px);
+        width: 100%;
+    }
+
+    /* Row 1: gap-20px between direct children */
+    .values-row {
+        display: flex;
+        gap: clamp(10px, 1.04vw, 20px);
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Row 2: larger gap (85px in Figma) between group and wide card */
+    .values-row--2 {
+        gap: clamp(42px, 4.43vw, 85px);
+    }
+
+    /* Standard value card (385×320, ratio 24.0625% of 1600px content) */
+    .value-card {
+        position: relative;
+        flex: 0 0 24.0625%;
+        aspect-ratio: 385 / 320;
+        border: 2px solid var(--color-blue-400);
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: clamp(20px, 2.08vw, 40px);
+        background: var(--color-white);
+        box-sizing: border-box;
+    }
+
+    /* Wide card (790×320 = 49.375% of 1600px) */
+    .value-card--wide {
+        flex: 1; /* fills remaining space after the group-left */
+        aspect-ratio: 790 / 320;
+    }
+
+    .vcard--blue-bg { background: var(--color-blue-100); }
+
+    /* Desktop ellipse decorations — percentage of card size, rendered as gradient circles */
+    .vcard-ellipse {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+        border-radius: 50%;
+        aspect-ratio: 1;
+        background: radial-gradient(circle at 45% 45%,
+            rgba(123, 207, 239, 0.75) 0%,
+            rgba(123, 207, 239, 0.45) 30%,
+            rgba(184, 232, 248, 0.25) 55%,
+            rgba(246, 252, 255, 0.1) 75%,
+            transparent 100%
+        );
+    }
+
+    .vcard--1 .vcard-ellipse         { left: 40%;  top: 28%;   width: 118%; }
+    .vcard--2 .vcard-ellipse         { left: 16%;  top: -101%; width: 166%; }
+    .vcard--3 .vcard-ellipse         { left: 40%;  top: -22%;  width: 118%; }
+    .vcard--4 .vcard-ellipse         { left: -60%; top: 28%;   width: 118%; }
+    .vcard--4 .vcard-ellipse--4      { left: -60%; top: 28%;   width: 118%; } /* alias */
+    .vcard--5 .vcard-ellipse         { left: -52%; top: -42%;  width: 103%; }
+
+    .vcard-num {
+        font-family: var(--font-pretendard);
+        font-weight: 300;
+        font-size: clamp(45px, 4.69vw, 90px);
+        line-height: 1.2;
+        color: var(--color-blue-500);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        position: relative;
+        z-index: 1;
+        margin: 0;
+    }
+
+    .vcard-label {
+        font-family: var(--font-pretendard);
+        font-weight: 500;
+        font-size: clamp(18px, 1.67vw, 32px);
+        line-height: 1.2;
+        color: var(--color-black-900);
+        letter-spacing: -1.28px;
+        text-transform: capitalize;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Row 1 group: decorative circle + card3 */
+    .values-group {
+        display: flex;
+        gap: clamp(42px, 4.43vw, 85px);
+        align-items: center;
+        flex: 1; /* takes remaining width after card1 + card2 + gaps */
+    }
+
+    .values-group .value-card {
+        flex: 1; /* card3 fills remaining space inside group */
+        aspect-ratio: 385 / 320;
+    }
+
+    /* Row 2 group: card4 + decorative circle */
+    .values-group--left {
+        flex: 0 0 45.3125%; /* 725 / 1600 */
+        display: flex;
+        gap: clamp(10px, 1.04vw, 20px);
+        align-items: center;
+    }
+
+    .values-group--left .value-card {
+        flex: 1;
+        aspect-ratio: 385 / 320;
+    }
+
+    /* Standalone decorative circle (320×320 in Figma) */
+    .deco-circle {
+        width: clamp(160px, 16.67vw, 320px);
+        height: clamp(160px, 16.67vw, 320px);
+        border-radius: 50%;
+        background: radial-gradient(circle at 45% 45%, #7BCFEF 0%, #b8e8f8 35%, #ddf3fc 60%, #F6FCFF 80%, transparent 100%);
+        flex-shrink: 0;
+        display: block;
+    }
+
+    /* ── Section heading — desktop override ── */
+    .section-heading {
+        font-size: clamp(24px, 2.4vw, 46px);
+        text-align: left;
+    }
+
+    /* ── Recruitment Process — Desktop ── */
+    .recruitment-section {
+        gap: clamp(30px, 3.13vw, 60px);
+        align-items: flex-start;
+    }
+
+    .process-box {
+        border: 1px solid var(--color-black-400);
+        border-radius: 20px;
+        padding: clamp(30px, 3.13vw, 60px);
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .process-steps {
+        display: flex;
+        gap: clamp(40px, 4.69vw, 90px);
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .process-step {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(16px, 1.67vw, 32px);
+        align-items: center;
+    }
+
+    .step-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        display: block;
+    }
+
+    .step-label {
+        font-family: var(--font-pretendard);
+        font-weight: 500;
+        font-size: clamp(14px, 1.25vw, 24px);
+        line-height: 1.2;
+        color: var(--color-black-900);
+        text-align: center;
+        text-transform: capitalize;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+    .step-sub {
+        font-size: clamp(12px, 1.04vw, 20px);
+        display: block;
+    }
+
+    .step-arrow {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        display: block;
+    }
+
+    .process-note {
+        font-size: clamp(16px, 1.46vw, 28px);
+    }
+
+    /* ── Open Positions — Desktop ── */
+    .positions-section {
+        padding-top: 120px;
+        gap: clamp(30px, 3.13vw, 60px);
+    }
+
+    .positions-heading {
+        text-align: center;
+    }
+
+    .positions-grid {
+        flex-direction: row;
+        gap: clamp(20px, 2.08vw, 40px);
+    }
+
+    .pos-card {
+        flex: 1;
+        border-radius: 20px;
+        padding: clamp(20px, 2.08vw, 40px) clamp(16px, 1.67vw, 32px);
+        min-height: clamp(300px, 31.5vw, 605px);
+        gap: clamp(20px, 2.08vw, 40px);
+    }
+
+    .pos-title {
+        font-size: clamp(20px, 2.08vw, 40px);
+    }
+
+    .pos-badge {
+        font-size: clamp(12px, 1.04vw, 20px);
+        width: 115px;
+        padding: 12px 20px;
+    }
+
+    .pos-details {
+        gap: clamp(10px, 1.04vw, 20px);
+    }
+
+    .detail-row {
+        gap: clamp(45px, 4.69vw, 90px);
+    }
+
+    .detail-key {
+        font-size: clamp(12px, 0.83vw, 16px);
+        letter-spacing: -0.64px;
+        flex: 0 0 170px; /* fixed label column on desktop */
+    }
+
+    .detail-val {
+        font-size: clamp(12px, 0.83vw, 16px);
+        letter-spacing: -0.64px;
+        flex: 1;
+    }
+
+    .desc-label {
+        font-size: clamp(12px, 0.83vw, 16px);
+        letter-spacing: -0.64px;
+    }
+
+    .desc-text {
+        font-size: 16px;
+        letter-spacing: -0.64px;
+    }
+}

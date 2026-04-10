@@ -1,0 +1,341 @@
+<template>
+    <div class={viewportClass}>
+
+        <!-- ═══════════════════════════════════════
+             HERO SECTION — Desktop only
+             ═══════════════════════════════════════ -->
+        <template if:true={isDesktop}>
+            <div class="hero-section" style={heroBgStyle}>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <p class="hero-line">DAEUnextier is looking for talents</p>
+                    <p class="hero-line">who will build the future with us.</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- ═══════════════════════════════════════
+             INTRO SECTION — Both viewports
+             ═══════════════════════════════════════ -->
+        <div class="intro-section">
+            <div class="intro-sub-wrap">
+                <p class="intro-sub">We seek creative individuals
+                    who enjoy their work with passion,
+                    take ownership, and continuously challenge themselves.</p>
+            </div>
+            <div class="intro-main-wrap">
+                <p class="intro-main">If this sounds like you,
+                    <span class="intro-highlight">you are exactly who we are looking for.</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════
+             VALUES SECTION — Desktop layout
+             ═══════════════════════════════════════ -->
+        <template if:true={isDesktop}>
+            <div class="values-desktop">
+
+                <!-- Row 1: card1 · card2 · [circle + card3] -->
+                <div class="values-row">
+                    <div class="value-card vcard--1 vcard--blue-bg">
+                        <div class="vcard-ellipse"></div>
+                        <span class="vcard-num">1.</span>
+                        <p class="vcard-label">Customer-focused mindset</p>
+                    </div>
+                    <div class="value-card vcard--2">
+                        <div class="vcard-ellipse"></div>
+                        <span class="vcard-num">2.</span>
+                        <p class="vcard-label">Values integrity and principles</p>
+                    </div>
+                    <div class="values-group">
+                        <div class="deco-circle"></div>
+                        <div class="value-card vcard--3">
+                            <div class="vcard-ellipse"></div>
+                            <span class="vcard-num">3.</span>
+                            <p class="vcard-label">Thinks<br />innovatively</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: [card4 + circle] · card5 wide -->
+                <div class="values-row values-row--2">
+                    <div class="values-group values-group--left">
+                        <div class="value-card vcard--4">
+                            <div class="vcard-ellipse vcard-ellipse--4"></div>
+                            <span class="vcard-num">4.</span>
+                            <p class="vcard-label">Passionate about their work</p>
+                        </div>
+                        <div class="deco-circle"></div>
+                    </div>
+                    <div class="value-card vcard--5 value-card--wide vcard--blue-bg">
+                        <div class="vcard-ellipse"></div>
+                        <span class="vcard-num">5.</span>
+                        <p class="vcard-label">A team player with a selfless mindset</p>
+                    </div>
+                </div>
+
+            </div>
+        </template>
+
+        <!-- ═══════════════════════════════════════
+             VALUES SECTION — Mobile layout
+             ═══════════════════════════════════════ -->
+        <template if:true={isMobile}>
+            <div class="values-mobile">
+
+                <!-- Row 1: Card 1 + Card 2 -->
+                <div class="vm-row">
+                    <div class="vm-card vm-card--1 vm-card--blue-bg">
+                        <div class="vm-ellipse"></div>
+                        <span class="vm-num">1.</span>
+                        <p class="vm-label">Customer-focused mindset</p>
+                    </div>
+                    <div class="vm-card vm-card--2">
+                        <div class="vm-ellipse"></div>
+                        <span class="vm-num">2.</span>
+                        <p class="vm-label">Values integrity and principles</p>
+                    </div>
+                </div>
+
+                <!-- Row 2: Decorative circle + Card 3 -->
+                <div class="vm-row">
+                    <div class="vm-circle"></div>
+                    <div class="vm-card vm-card--3">
+                        <div class="vm-ellipse"></div>
+                        <span class="vm-num">3.</span>
+                        <p class="vm-label">Thinks<br />innovatively</p>
+                    </div>
+                </div>
+
+                <!-- Row 3: Card 4 + Decorative circle -->
+                <div class="vm-row">
+                    <div class="vm-card vm-card--4">
+                        <div class="vm-ellipse"></div>
+                        <span class="vm-num">4.</span>
+                        <p class="vm-label">Passionate about their work</p>
+                    </div>
+                    <div class="vm-circle"></div>
+                </div>
+
+                <!-- Full width: Card 5 -->
+                <div class="vm-card vm-card--5 vm-card--full vm-card--blue-bg">
+                    <div class="vm-ellipse"></div>
+                    <span class="vm-num">5.</span>
+                    <p class="vm-label">A team player with a selfless mindset</p>
+                </div>
+
+            </div>
+        </template>
+
+        <!-- ═══════════════════════════════════════
+             RECRUITMENT PROCESS SECTION — Both
+             ═══════════════════════════════════════ -->
+        <div class="recruitment-section">
+            <h2 class="section-heading">Recruitment Process</h2>
+
+            <!-- Desktop: horizontal row -->
+            <template if:true={isDesktop}>
+                <div class="process-box">
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <img src={iconFileEditUrl} alt="" class="step-icon" />
+                            <p class="step-label">Application<br />Submission</p>
+                        </div>
+                        <img src={iconPolygonUrl} alt="" class="step-arrow" />
+                        <div class="process-step">
+                            <img src={iconFileSearchUrl} alt="" class="step-icon" />
+                            <p class="step-label">Resume<br />Screening</p>
+                        </div>
+                        <img src={iconPolygonUrl} alt="" class="step-arrow" />
+                        <div class="process-step">
+                            <img src={iconMessageTextUrl} alt="" class="step-icon" />
+                            <p class="step-label">Interview<br /><span class="step-sub">(Team / Executive)</span></p>
+                        </div>
+                        <img src={iconPolygonUrl} alt="" class="step-arrow" />
+                        <div class="process-step">
+                            <img src={iconHourglassUrl} alt="" class="step-icon" />
+                            <p class="step-label">Offer<br />Discussion</p>
+                        </div>
+                        <img src={iconPolygonUrl} alt="" class="step-arrow" />
+                        <div class="process-step">
+                            <img src={iconThumbUpUrl} alt="" class="step-icon" />
+                            <p class="step-label">Final<br />Acceptance</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Mobile: wrapped layout with dividers -->
+            <template if:true={isMobile}>
+                <div class="process-box-mobile">
+                    <!-- Row 1: Application → Resume -->
+                    <div class="pm-row">
+                        <div class="pm-step">
+                            <img src={iconFileEditUrl} alt="" class="pm-icon" />
+                            <p class="pm-label">Application<br />Submission</p>
+                        </div>
+                        <img src={iconPolygonUrl} alt="" class="pm-arrow" />
+                        <div class="pm-step">
+                            <img src={iconFileSearchUrl} alt="" class="pm-icon" />
+                            <p class="pm-label">Resume<br />Screening</p>
+                        </div>
+                    </div>
+                    <!-- Middle: Interview with top/bottom borders -->
+                    <div class="pm-middle">
+                        <div class="pm-step">
+                            <img src={iconMessageTextUrl} alt="" class="pm-icon" />
+                            <p class="pm-label">Interview<br /><span class="pm-sub">(Team / Executive)</span></p>
+                        </div>
+                    </div>
+                    <!-- Row 2: Offer → Final -->
+                    <div class="pm-row">
+                        <img src={iconPolygonUrl} alt="" class="pm-arrow" />
+                        <div class="pm-step">
+                            <img src={iconHourglassUrl} alt="" class="pm-icon" />
+                            <p class="pm-label">Offer<br />Discussion</p>
+                        </div>
+                        <img src={iconPolygonUrl} alt="" class="pm-arrow" />
+                        <div class="pm-step">
+                            <img src={iconThumbUpUrl} alt="" class="pm-icon" />
+                            <p class="pm-label">Final<br />Acceptance</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <p class="process-note">
+                This is the first step toward growing with DAEUnextier.<br />
+                We carefully review each candidate&#x27;s experience and potential.
+            </p>
+        </div>
+
+        <!-- ═══════════════════════════════════════
+             OPEN POSITIONS SECTION — Both viewports
+             ═══════════════════════════════════════ -->
+        <div class="positions-section">
+            <h2 class="section-heading positions-heading">Open Positions</h2>
+            <div class="positions-grid">
+
+                <!-- Administrator Card -->
+                <div class="pos-card">
+                    <div class="pos-header">
+                        <span class="pos-title">Administrator</span>
+                        <span class="pos-badge">경력 모집</span>
+                    </div>
+                    <div class="pos-details">
+                        <div class="detail-row">
+                            <span class="detail-key">Employment Type</span>
+                            <span class="detail-val">Full-time</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Experience Level</span>
+                            <span class="detail-val">Experienced</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Job Position</span>
+                            <span class="detail-val">Administrator</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Educatioal Background</span>
+                            <span class="detail-val">No specific requirement</span>
+                        </div>
+                    </div>
+                    <div class="pos-desc">
+                        <p class="desc-label">Job Description</p>
+                        <div class="desc-box">
+                            <p class="desc-text">Business process analysis and Salesforce solution administration (BA)</p>
+                        </div>
+                    </div>
+                    <button class="apply-btn" type="button" aria-label="Apply Now for Administrator">
+                        <span class="apply-btn-text">APPLY NOW</span>
+                        <div class="apply-btn-arrow-wrap">
+                            <img src={iconArrowUrl} alt="" class="apply-arrow apply-arrow--enter" />
+                            <img src={iconArrowUrl} alt="" class="apply-arrow apply-arrow--show" />
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Developer Card -->
+                <div class="pos-card">
+                    <div class="pos-header">
+                        <span class="pos-title">Developer</span>
+                        <span class="pos-badge">경력 모집</span>
+                    </div>
+                    <div class="pos-details">
+                        <div class="detail-row">
+                            <span class="detail-key">Employment Type</span>
+                            <span class="detail-val">Full-time</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Experience Level</span>
+                            <span class="detail-val">Experienced</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Job Position</span>
+                            <span class="detail-val">Developer</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Educatioal Background</span>
+                            <span class="detail-val">No specific requirement</span>
+                        </div>
+                    </div>
+                    <div class="pos-desc">
+                        <p class="desc-label">Job Description</p>
+                        <div class="desc-box">
+                            <p class="desc-text">Salesforce interface customization and system integration with external platforms</p>
+                        </div>
+                    </div>
+                    <button class="apply-btn" type="button" aria-label="Apply Now for Developer">
+                        <span class="apply-btn-text">APPLY NOW</span>
+                        <div class="apply-btn-arrow-wrap">
+                            <img src={iconArrowUrl} alt="" class="apply-arrow apply-arrow--enter" />
+                            <img src={iconArrowUrl} alt="" class="apply-arrow apply-arrow--show" />
+                        </div>
+                    </button>
+                </div>
+
+                <!-- PM Card -->
+                <div class="pos-card">
+                    <div class="pos-header">
+                        <span class="pos-title">PM</span>
+                        <span class="pos-badge">경력 모집</span>
+                    </div>
+                    <div class="pos-details">
+                        <div class="detail-row">
+                            <span class="detail-key">Employment Type</span>
+                            <span class="detail-val">Full-time</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Experience Level</span>
+                            <span class="detail-val">Experienced</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Job Position</span>
+                            <span class="detail-val">PM</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-key">Educatioal Background</span>
+                            <span class="detail-val">No specific requirement</span>
+                        </div>
+                    </div>
+                    <div class="pos-desc">
+                        <p class="desc-label">Job Description</p>
+                        <div class="desc-box">
+                            <p class="desc-text">Project Manager for cloud-based system design and development</p>
+                        </div>
+                    </div>
+                    <button class="apply-btn" type="button" aria-label="Apply Now for PM">
+                        <span class="apply-btn-text">APPLY NOW</span>
+                        <div class="apply-btn-arrow-wrap">
+                            <img src={iconArrowUrl} alt="" class="apply-arrow apply-arrow--enter" />
+                            <img src={iconArrowUrl} alt="" class="apply-arrow apply-arrow--show" />
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</template>
